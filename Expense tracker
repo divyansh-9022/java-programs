@@ -1,0 +1,90 @@
+import java.util.ArrayList;
+import java.util.Scanner;
+
+public class ExpenseTracker {
+
+    static ArrayList<String> descriptions = new ArrayList<>();
+    static ArrayList<Double> amounts = new ArrayList<>();
+
+    static void addExpense(String description, double amount) {
+        descriptions.add(description);
+        amounts.add(amount);
+        System.out.println("Expense added successfully.");
+    }
+
+    static void viewExpenses() {
+        if (descriptions.isEmpty()) {
+            System.out.println("No expenses recorded.");
+            return;
+        }
+
+        System.out.println("\n----- Expenses -----");
+
+        for (int i = 0; i < descriptions.size(); i++) {
+            System.out.println(
+                    (i + 1) + ". " +
+                    descriptions.get(i) +
+                    " - ₹" +
+                    amounts.get(i)
+            );
+        }
+    }
+
+    static void showTotal() {
+        double total = 0;
+
+        for (double amount : amounts) {
+            total += amount;
+        }
+
+        System.out.println("Total Expenses: ₹" + total);
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        int choice;
+
+        do {
+            System.out.println("\n===== EXPENSE TRACKER =====");
+            System.out.println("1. Add Expense");
+            System.out.println("2. View Expenses");
+            System.out.println("3. Show Total");
+            System.out.println("4. Exit");
+
+            System.out.print("Enter choice: ");
+            choice = sc.nextInt();
+            sc.nextLine();
+
+            switch (choice) {
+                case 1:
+                    System.out.print("Enter expense description: ");
+                    String description = sc.nextLine();
+
+                    System.out.print("Enter amount: ₹");
+                    double amount = sc.nextDouble();
+
+                    addExpense(description, amount);
+                    break;
+
+                case 2:
+                    viewExpenses();
+                    break;
+
+                case 3:
+                    showTotal();
+                    break;
+
+                case 4:
+                    System.out.println("Exiting Expense Tracker.");
+                    break;
+
+                default:
+                    System.out.println("Invalid choice.");
+            }
+
+        } while (choice != 4);
+
+        sc.close();
+    }
+}
