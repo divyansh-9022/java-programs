@@ -6,7 +6,7 @@ public class ATMSimulation {
 
     static void checkBalance() {
         System.out.println("Current Balance: ₹" + balance);
-    }
+     }
 
     static void deposit(double amount) {
         if (amount > 0) {
