@@ -1,0 +1,122 @@
+import java.util.ArrayList;
+import java.util.Scanner;
+
+public class ContactBook {
+
+    static ArrayList<String> names = new ArrayList<>();
+    static ArrayList<String> phoneNumbers = new ArrayList<>();
+
+    static void addContact(String name, String phone) {
+        names.add(name);
+        phoneNumbers.add(phone);
+        System.out.println("Contact added successfully.");
+    }
+
+    static void viewContacts() {
+        if (names.isEmpty()) {
+            System.out.println("No contacts found.");
+            return;
+        }
+
+        System.out.println("\n----- Contact List -----");
+
+        for (int i = 0; i < names.size(); i++) {
+            System.out.println(
+                    (i + 1) + ". " +
+                    names.get(i) +
+                    " - " +
+                    phoneNumbers.get(i)
+            );
+        }
+    }
+
+    static void searchContact(String name) {
+        boolean found = false;
+
+        for (int i = 0; i < names.size(); i++) {
+            if (names.get(i).equalsIgnoreCase(name)) {
+                System.out.println(
+                        "Name: " + names.get(i) +
+                        ", Phone: " + phoneNumbers.get(i)
+                );
+                found = true;
+            }
+        }
+
+        if (!found) {
+            System.out.println("Contact not found.");
+        }
+    }
+
+    static void deleteContact(String name) {
+        for (int i = 0; i < names.size(); i++) {
+            if (names.get(i).equalsIgnoreCase(name)) {
+                names.remove(i);
+                phoneNumbers.remove(i);
+                System.out.println("Contact deleted.");
+                return;
+            }
+        }
+
+        System.out.println("Contact not found.");
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        int choice;
+
+        do {
+            System.out.println("\n===== CONTACT BOOK =====");
+            System.out.println("1. Add Contact");
+            System.out.println("2. View Contacts");
+            System.out.println("3. Search Contact");
+            System.out.println("4. Delete Contact");
+            System.out.println("5. Exit");
+
+            System.out.print("Enter choice: ");
+            choice = sc.nextInt();
+            sc.nextLine();
+
+            switch (choice) {
+                case 1:
+                    System.out.print("Enter name: ");
+                    String name = sc.nextLine();
+
+                    System.out.print("Enter phone number: ");
+                    String phone = sc.nextLine();
+
+                    addContact(name, phone);
+                    break;
+
+                case 2:
+                    viewContacts();
+                    break;
+
+                case 3:
+                    System.out.print("Enter name to search: ");
+                    String searchName = sc.nextLine();
+
+                    searchContact(searchName);
+                    break;
+
+                case 4:
+                    System.out.print("Enter name to delete: ");
+                    String deleteName = sc.nextLine();
+
+                    deleteContact(deleteName);
+                    break;
+
+                case 5:
+                    System.out.println("Exiting Contact Book.");
+                    break;
+
+                default:
+                    System.out.println("Invalid choice.");
+            }
+
+        } while (choice != 5);
+
+        sc.close();
+    }
+}
