@@ -1,0 +1,68 @@
+import java.util.Scanner;
+
+public class NumberAnalyzer {
+
+    static boolean isPrime(int number) {
+        if (number <= 1) {
+            return false;
+        }
+
+        for (int i = 2; i <= Math.sqrt(number); i++) {
+            if (number % i == 0) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    static int countDigits(int number) {
+        number = Math.abs(number);
+
+        if (number == 0) {
+            return 1;
+        }
+
+        int count = 0;
+
+        while (number > 0) {
+            count++;
+            number /= 10;
+        }
+
+        return count;
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        System.out.print("Enter a number: ");
+        int number = sc.nextInt();
+
+        System.out.println("\n----- Number Analysis -----");
+
+        if (number % 2 == 0) {
+            System.out.println("Even number");
+        } else {
+            System.out.println("Odd number");
+        }
+
+        if (number > 0) {
+            System.out.println("Positive number");
+        } else if (number < 0) {
+            System.out.println("Negative number");
+        } else {
+            System.out.println("Zero");
+        }
+
+        if (isPrime(number)) {
+            System.out.println("Prime number");
+        } else {
+            System.out.println("Not a prime number");
+        }
+
+        System.out.println("Number of digits: " + countDigits(number));
+
+        sc.close();
+    }
+}
